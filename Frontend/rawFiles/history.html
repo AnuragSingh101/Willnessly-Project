@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search History - Wellnessify</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      background-color: #f1f1f1;
+      padding: 20px;
+      text-align: center;
+      height: 120px;
+      position: relative;
+    }
+
+    .header img {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100px;
+      width: auto;
+    }
+
+    .header h1 {
+      font-family: 'Pacifico', cursive;
+      margin: 0;
+    }
+
+    .header p {
+      font-family: Arial, sans-serif;
+      margin: 5px 0 0;
+    }
+
+    .topnav {
+      overflow: hidden;
+      background-color: #333;
+      margin-top: -10px;
+    }
+
+    .topnav a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 180px);
+      background-color: #f9f9f9;
+    }
+
+    .content-box {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid #ddd;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border-radius: 10px;
+      width: 80%;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    .history-list {
+      list-style-type: none;
+      padding: 0;
+      font-size: 18px;
+    }
+
+    .history-list li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .history-list li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header section -->
+  <div class="header">
+    <img src="image/wellnessify logo.jpg.png" alt="Wellnessify Logo">
+    <h1>Wellnessify</h1>
+    <p>Your Health, Our Care</p>
+  </div>
+
+  <!-- Top navigation bar -->
+  <div class="topnav">
+    <a href="myprofile.html">My Profile</a>
+    <a href="history.html">History</a>
+    <a href="settings.html">Settings</a>
+    <a href="aboutus.html">About us</a>
+  </div>
+
+  <!-- Main content section -->
+  <div class="main-content">
+    <div class="content-box">
+      <h2>Your Search History</h2>
+      <p>Here are your past symptom searches:</p>
+      <ul class="history-list" id="history-list">
+        <!-- Search history will be injected here by JavaScript -->
+      </ul>
+    </div>
+  </div>
+
+  
+
+</body>
+</html>

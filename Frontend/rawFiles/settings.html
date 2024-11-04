@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - Wellnessify</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+    }
+
+    .header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .settings-container {
+      margin: 20px auto;
+      width: 80%;
+      max-width: 600px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #333;
+      color: white;
+    }
+
+    td a {
+      color: #003366;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    td a:hover {
+      text-decoration: underline;
+    }
+
+    .logout-btn {
+      padding: 10px;
+      background-color: #ff4c4c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logout-btn:hover {
+      background-color: #ff1a1a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Settings</h1>
+  </div>
+
+  <div class="settings-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Profile Settings</td>
+          <!-- Link to the My Profile page -->
+          <td><a href="myprofile.html">Edit Profile</a></td>
+        </tr>
+        <tr>
+          <td>Notifications</td>
+          <td><a href="#notifications">Manage Notifications</a></td>
+        </tr>
+        <tr>
+          <td>Privacy Settings</td>
+          <td><a href="#privacy">Update Privacy</a></td>
+        </tr>
+        <tr>
+          <td>Account Security</td>
+          <td><a href="#security">Change Password</a></td>
+        </tr>
+        <tr>
+          <td>Log Out</td>
+          <td><button class="logout-btn">Log Out</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

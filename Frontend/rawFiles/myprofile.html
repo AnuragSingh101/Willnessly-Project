@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - Wellnessify</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .header h1 {
+      margin: 0;
+    }
+
+    .profile-container {
+      margin: 20px auto;
+      width: 80%;
+      max-width: 600px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #333;
+      color: white;
+    }
+
+    td a {
+      color: #003366;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    td a:hover {
+      text-decoration: underline;
+    }
+
+    .edit-btn, .change-btn {
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .edit-btn:hover, .change-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>My Profile</h1>
+  </div>
+
+  <div class="profile-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Profile Detail</th>
+          <th>Information</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Profile Name</td>
+          <td id="profile-name">Loading...</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td id="profile-email">Loading...</td>
+        </tr>
+        <tr>
+          <td>Phone Number</td>
+          <td id="profile-phone">Loading...</td>
+        </tr>
+        <tr>
+          <td>Edit Profile</td>
+          <td><button class="edit-btn">Edit Profile</button></td>
+        </tr>
+        <tr>
+          <td>Change Password</td>
+          <td><button class="change-btn">Change Password</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+
+</body>
+</html>

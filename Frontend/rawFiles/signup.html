@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | Wellnessify</title>
+    <style>
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 0;
+            background-color: #a1d5f5;
+        }
+
+        .form-box {
+            background-color: hsl(0, 0%, 100%);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: hsl(0, 0%, 0%); /* Dark blue */
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #003366; /* Dark blue */
+            
+        }
+
+        p {
+            color: #333; /* Neutral dark color */
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #003366; /* Dark blue */
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .signup-btn {
+            background-color: #003366; /* Dark blue */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .signup-btn:hover {
+            background-color: #002244; /* Darker shade of blue */
+        }
+
+        .login-link {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: #ffcc33; /* Mustard yellow */
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #003366; /* Dark blue */
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        footer a {
+            color: #ffcc33; /* Mustard yellow */
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>Wellnessify</h1>
+        </div>
+        <p class="tagline">Your Path to Better Health Starts Here</p>
+    </header>
+
+    <!-- Signup Form Section -->
+    <section class="signup-container">
+        <div class="form-box">
+            <h2>Join Wellnessify Today!</h2>
+            <p>Create your account to manage your health and access personalized remedies.</p>
+
+            <!-- Signup Form -->
+            <form id="signupForm" onsubmit="return handleSignup(event);">
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+
+                <!-- Signup Button -->
+                <button type="submit" class="signup-btn">Create Account</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>By signing up, you agree to our <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.</p>
+    </footer>
+
+    
+</body>
+</html>
