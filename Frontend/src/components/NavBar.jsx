@@ -12,7 +12,7 @@ const NavBar = ({ theme = 'light' }) => {
     navigate('/');
   };
 
-  const isLoggedIn = !!localStorage.getItem('token');
+  const isLoggedIn = !!localStorage.getItem('token'); // Check if the user is logged in
 
   return (
     <div style={theme === 'dark' ? styles.navBarDark : styles.navBarLight}>
@@ -29,6 +29,7 @@ const NavBar = ({ theme = 'light' }) => {
         <div style={styles.navLeft}>
           <Link to="/" style={styles.navLink}>Home</Link>
           <Link to="/aboutus" style={styles.navLink}>About Us</Link>
+          {isLoggedIn && <Link to="/remedies" style={styles.navLink}>Remedies</Link>} {/* Show Remedies link only if logged in */}
           {isLoggedIn && <Link to="/searchhistory" style={styles.navLink}>History</Link>}
         </div>
         <div style={styles.navRight}>

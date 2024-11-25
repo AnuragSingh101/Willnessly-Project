@@ -3,27 +3,25 @@ const Remedy = require('../models/Remedy'); // Make sure to import your Remedy m
 // Function to get remedies by symptom
 const remedy = async (req, res) => {
     try {
-        const symptomName = req.query.symptom; // Get the symptom from query parameter
+        const symptomName = req.query.symptom;
 
-        // Check if the symptom parameter is provided
         if (!symptomName) {
             return res.status(400).json({ message: 'Symptom name is required.' });
         }
 
-        // Query to find remedies with the matching symptom
         const remedies = await Remedy.find({
-            symptoms: { $elemMatch: { name: symptomName } } // Check for the symptom name in the symptoms array
+            symptoms: { $elemMatch: { name: symptomName } }
         });
 
-        // If no remedies found, return a message
+        console.log('Found remedies:', remedies); // Log remedies for debugging
+
         if (remedies.length === 0) {
             return res.status(404).json({ message: 'No remedies found for the provided symptom.' });
         }
 
-        // Send remedies as JSON response
         res.json(remedies);
     } catch (error) {
-        console.error("Error retrieving remedies:", error); // Log the error
+        console.error("Error retrieving remedies:", error);
         res.status(500).json({ message: 'Error retrieving remedies', error: error.message });
     }
 };
