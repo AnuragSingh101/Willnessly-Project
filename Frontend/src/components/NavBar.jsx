@@ -1,7 +1,7 @@
-// NavBar.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaSignOutAlt } from 'react-icons/fa';
+import logo from '../assets/logo.jpeg'; // Import the logo
 
 const NavBar = ({ theme = 'light' }) => {
   const navigate = useNavigate();
@@ -15,119 +15,75 @@ const NavBar = ({ theme = 'light' }) => {
   const isLoggedIn = !!localStorage.getItem('token'); // Check if the user is logged in
 
   return (
-    <div style={theme === 'dark' ? styles.navBarDark : styles.navBarLight}>
-      <div style={styles.header}>
+    <div style={{ position: 'relative', padding: '5px 20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+      {/* Logo and Title Section */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <img 
-          src="wellnessifylogo.png" // Update with your logo's path
+          src={logo} 
           alt="Wellnessify Logo" 
-          style={styles.logo} 
+          style={{ height: '50px', width: 'auto' }} // Reduced logo height
         />
-        <h1 style={styles.headerTitle}>Wellnessify</h1>
-        <p style={styles.headerSubtitle}>Your Health, Our Care</p>
+        <div>
+          <h1 style={{ margin: 0, fontSize: '1.5rem' }}>Wellnessify</h1> {/* Smaller font size */}
+          <p style={{ margin: 0, fontSize: '0.8rem', color: 'gray' }}>Your Health, Our Care</p> {/* Smaller subtitle */}
+        </div>
       </div>
-      <nav style={styles.nav}>
-        <div style={styles.navLeft}>
-          <Link to="/" style={styles.navLink}>Home</Link>
-          <Link to="/aboutus" style={styles.navLink}>About Us</Link>
-          {isLoggedIn && <Link to="/remedies" style={styles.navLink}>Remedies</Link>} {/* Show Remedies link only if logged in */}
-          {isLoggedIn && <Link to="/searchhistory" style={styles.navLink}>History</Link>}
-        </div>
-        <div style={styles.navRight}>
-          {isLoggedIn ? (
-            <>
-              <Link to="/profile" style={styles.iconLink}>
-                <FaUser size={20} />
-              </Link>
-              <button onClick={handleLogout} style={styles.iconButton}>
-                <FaSignOutAlt size={20} />
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" style={styles.navLink}>Login</Link>
-              <Link to="/signup" style={styles.navLink}>Sign Up</Link>
-            </>
-          )}
-        </div>
+
+      {/* Center Navigation Links */}
+      <nav style={{ textAlign: 'center', margin: '10px 0' }}> {/* Reduced top/bottom margin */}
+        <Link to="/" style={navLinkStyle}>Home</Link>
+        <Link to="/aboutus" style={navLinkStyle}>About Us</Link>
+        {isLoggedIn && <Link to="/remedies" style={navLinkStyle}>Remedies</Link>}
+        {isLoggedIn && <Link to="/searchhistory" style={navLinkStyle}>History</Link>}
+        {!isLoggedIn && <Link to="/login" style={navLinkStyle}>Login</Link>}
+        {!isLoggedIn && <Link to="/signup" style={navLinkStyle}>Sign Up</Link>}
       </nav>
+
+      {/* Profile and Logout Buttons */}
+      {isLoggedIn && (
+        <div style={{ position: 'absolute', top: '5px', right: '20px', display: 'flex', gap: '10px' }}>
+          <Link to="/profile" style={iconButtonStyle}>
+            <FaUser size={18} /> {/* Smaller icon */}
+          </Link>
+          <button onClick={handleLogout} style={iconButtonStyle}>
+            <FaSignOutAlt size={18} /> {/* Smaller icon */}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
 
-// Styles for the dark theme
-const styles = {
-  navBarDark: {
-    backgroundColor: '#2C3E50', // Dark background
-    padding: '20px',
-    textAlign: 'center',
-    fontFamily: "'Arial', sans-serif",
-    color: '#ECF0F1', // Light text color
-  },
-  navBarLight: {
-    backgroundColor: '#ECF0F1', // Light background
-    padding: '20px',
-    textAlign: 'center',
-    fontFamily: "'Arial', sans-serif",
-    color: '#2C3E50', // Dark text color
-  },
-  header: {
-    marginBottom: '10px',
-    textAlign: 'center',
-  },
-  logo: {
-    height: '80px',
-    width: 'auto',
-    borderRadius: '10px',
-  },
-  headerTitle: {
-    fontSize: '2.5rem',
-    fontWeight: 'bold',
-    margin: '10px 0 5px',
-  },
-  headerSubtitle: {
-    fontSize: '1rem',
-    color: '#BDC3C7',
-  },
-  nav: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: '10px',
-  },
-  navLeft: {
-    display: 'flex',
-    gap: '1rem',
-  },
-  navRight: {
-    display: 'flex',
-    gap: '1rem',
-  },
-  navLink: {
-    textDecoration: 'none',
-    padding: '10px 20px',
-    borderRadius: '5px',
-    fontSize: '1rem',
-    fontWeight: '500',
-    transition: 'background-color 0.3s ease, color 0.3s ease',
-  },
-  iconLink: {
-    padding: '10px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease, color 0.3s ease',
-  },
-  iconButton: {
-    padding: '10px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease, color 0.3s ease',
-  },
+
+const navLinkStyle = {
+  textDecoration: 'none',
+  margin: '0 10px', 
+  fontSize: '0.9rem', 
+  fontWeight: '500',
+  color: '#333',
+  padding: '5px 10px', 
+  borderRadius: '5px',
+  transition: 'background-color 0.3s ease, color 0.3s ease',
 };
 
-// Hover effect for links and button
-styles.navLink[':hover'] = styles.iconLink[':hover'] = styles.iconButton[':hover'] = {
-  backgroundColor: '#1ABC9C', // Lighter color on hover
-  color: '#FFFFFF',
+const iconButtonStyle = {
+  backgroundColor: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  padding: '5px', 
+  borderRadius: '5px',
+  color: '#333',
+  transition: 'background-color 0.3s ease, color 0.3s ease',
+};
+
+navLinkStyle[':hover'] = {
+  backgroundColor: '#1abc9c',
+  color: '#fff',
+};
+
+iconButtonStyle[':hover'] = {
+  backgroundColor: '#1abc9c',
+  color: '#fff',
 };
 
 export default NavBar;
