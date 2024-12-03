@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 // Register User
 exports.register = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, role } = req.body;
 
     try {
         // Check if the user already exists
@@ -15,8 +15,11 @@ exports.register = async (req, res) => {
         // Hash the password before saving
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Assign the role (default to 'user' if not provided)
+        const userRole = role === 'admin' ? 'admin' : 'user';
+
         // Create a new user
-        user = new User({ name, email, password: hashedPassword });
+        user = new User({ name, email, password: hashedPassword, role: userRole });
         await user.save();
 
         // Optionally return the created user's information
@@ -26,6 +29,7 @@ exports.register = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
+                role: user.role,
                 createdAt: user.createdAt,
             },
         });
@@ -47,8 +51,8 @@ exports.login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-        // Generate a JWT token
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        // Generate a JWT token including the role
+        const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
         // Return the token and user information
         res.json({
@@ -57,6 +61,7 @@ exports.login = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
+                role: user.role,
             },
         });
     } catch (err) {
@@ -80,6 +85,7 @@ exports.getProfile = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
+                role: user.role,  // Include role in profile response
                 createdAt: user.createdAt,
             },
         });
@@ -88,9 +94,8 @@ exports.getProfile = async (req, res) => {
     }
 };
 
-
 // Update User Profile
-exports.updateProfile = async (req, res) => {
+exports.editProfile = async (req, res) => {
     const { name, email, password } = req.body;
     const userId = req.user.userId; // Assuming you are using middleware to extract user ID from token
 
@@ -119,6 +124,7 @@ exports.updateProfile = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
+                role: user.role, // Include role in updated response
             },
         });
     } catch (err) {
@@ -126,33 +132,10 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
-// controllers/authController.js
-exports.editProfile = async (req, res) => {
-    const { name, email } = req.body; // Get new data from the request body
-    const userId = req.user.userId; // Get the user ID from the token
-
-    try {
-        // Find the user by ID
-        const user = await User.findById(userId);
-        if (!user) return res.status(404).json({ message: "User not found" });
-
-        // Update user fields
-        if (name) user.name = name; // Update name if provided
-        if (email) user.email = email; // Update email if provided
-
-        await user.save(); // Save changes to the database
-
-        // Return the updated user information
-        res.json({
-            message: "Profile updated successfully",
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-                createdAt: user.createdAt,
-            },
-        });
-    } catch (err) {
-        res.status(500).json({ message: "Error updating profile", error: err.message });
+// Middleware to restrict access to admin users
+exports.isAdmin = (req, res, next) => {
+    if (req.user.role !== 'admin') {
+        return res.status(403).json({ message: "Forbidden: Admins only" });
     }
+    next();
 };

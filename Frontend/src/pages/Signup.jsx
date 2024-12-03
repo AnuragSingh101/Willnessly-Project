@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; // For navigation
+import axios from 'axios'; // For API calls
 
 const Signup = () => {
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
+
     // State for form inputs
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         confirmPassword: '',
+        role: 'user', // Default role
     });
 
-    // State for form error
+    // State for error messages
     const [error, setError] = useState('');
 
-    // Handle input changes
+    // Handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -23,7 +26,7 @@ const Signup = () => {
     // Handle form submission
     const handleSignup = async (e) => {
         e.preventDefault();
-        const { password, confirmPassword } = formData;
+        const { name, email, password, confirmPassword, role } = formData;
 
         // Validate passwords match
         if (password !== confirmPassword) {
@@ -32,57 +35,35 @@ const Signup = () => {
         }
 
         try {
-            // Send a POST request to the backend API
-            const response = await fetch('http://localhost:5000/api/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    password: formData.password,
-                }),
+            // API call to register the user
+            const response = await axios.post('http://localhost:5000/api/auth/register', {
+                name,
+                email,
+                password,
+                role, // Include role
             });
 
-            // Check for successful signup
-            if (!response.ok) {
-                const errorData = await response.json();
-                setError(errorData.message || 'Error signing up. Please try again.');
-                return;
+            if (response.status === 201) {
+                alert('User registered successfully!');
+                navigate('/login'); // Redirect to login page
             }
-
-            // Redirect to login page on successful signup
-            alert('User registered successfully!'); // Show success message
-            navigate('/login'); // Navigate to the login page
-
-            // Optionally reset form fields
-            setFormData({
-                name: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-            });
-        } catch (error) {
-            console.error('Error during signup:', error);
-            setError('An unexpected error occurred. Please try again.');
+        } catch (err) {
+            console.error(err);
+            setError(err.response?.data?.message || 'Error signing up. Please try again.');
         }
     };
 
     return (
         <div style={styles.pageContainer}>
-            <div className="container" style={styles.container}>
-                <div className="logo">
-                    <img src="image/wellnessify_logo.jpg.png" alt="Wellnessify Logo" style={styles.logoImage} />
-                </div>
-                <h2 style={styles.h2}>Join Wellnessify Today!</h2>
-                <p>Create your account to manage your health and access personalized remedies.</p>
+            <div style={styles.container}>
+                <img src="image/wellnessify_logo.jpg.png" alt="Wellnessify Logo" style={styles.logoImage} />
+                <h2 style={styles.h2}>Join Wellnessify</h2>
+                <p>Create your account to access personalized health management tools.</p>
 
                 {error && <p style={styles.error}>{error}</p>}
 
-                {/* Signup Form */}
-                <form id="signupForm" onSubmit={handleSignup}>
-                    <div className="input-group" style={styles.inputGroup}>
+                <form onSubmit={handleSignup} style={styles.form}>
+                    <div style={styles.inputGroup}>
                         <label htmlFor="name" style={styles.label}>Full Name</label>
                         <input
                             type="text"
@@ -95,8 +76,8 @@ const Signup = () => {
                         />
                     </div>
 
-                    <div className="input-group" style={styles.inputGroup}>
-                        <label htmlFor="email" style={styles.label}>Email Address</label>
+                    <div style={styles.inputGroup}>
+                        <label htmlFor="email" style={styles.label}>Email</label>
                         <input
                             type="email"
                             id="email"
@@ -108,7 +89,7 @@ const Signup = () => {
                         />
                     </div>
 
-                    <div className="input-group" style={styles.inputGroup}>
+                    <div style={styles.inputGroup}>
                         <label htmlFor="password" style={styles.label}>Password</label>
                         <input
                             type="password"
@@ -121,11 +102,11 @@ const Signup = () => {
                         />
                     </div>
 
-                    <div className="input-group" style={styles.inputGroup}>
-                        <label htmlFor="confirm-password" style={styles.label}>Confirm Password</label>
+                    <div style={styles.inputGroup}>
+                        <label htmlFor="confirmPassword" style={styles.label}>Confirm Password</label>
                         <input
                             type="password"
-                            id="confirm-password"
+                            id="confirmPassword"
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
@@ -134,38 +115,48 @@ const Signup = () => {
                         />
                     </div>
 
-                    {/* Signup Button */}
-                    <button type="submit" className="signup-btn" style={styles.signupBtn}>Create Account</button>
+                    <div style={styles.inputGroup}>
+                        <label htmlFor="role" style={styles.label}>Role</label>
+                        <select
+                            id="role"
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            required
+                            style={styles.input}
+                        >
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" style={styles.signupBtn}>Sign Up</button>
                 </form>
 
-                <p style={styles.p}>Already have an account? <a href="/login" style={styles.link}>Login</a></p>
+                <p style={styles.footer}>
+                    Already have an account? <a href="/login" style={styles.link}>Login</a>
+                </p>
             </div>
         </div>
     );
 };
 
-// Styles for the components
 const styles = {
     pageContainer: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '75vh', // Set the height to 75vh
-        backgroundColor: '#E8F8F5', // Light background for the entire page
-        padding: '10px', // Padding for the page
+        height: '100vh',
+        backgroundColor: '#E8F8F5',
     },
     container: {
         background: '#fff',
         padding: '30px',
         borderRadius: '10px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        width: '100%', // Full width within its container
-        maxWidth: '500px', // Max width of the container
+        maxWidth: '400px',
+        width: '100%',
         textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     logoImage: {
         width: '150px',
@@ -175,43 +166,39 @@ const styles = {
         color: '#003366',
         marginBottom: '15px',
     },
-    p: {
-        color: '#333',
+    error: {
+        color: 'red',
         marginBottom: '15px',
     },
     inputGroup: {
-        width: '100%',
         marginBottom: '15px',
     },
     label: {
         display: 'block',
-        marginBottom: '2px',
+        marginBottom: '5px',
         fontWeight: 'bold',
-        color: '#333',
     },
     input: {
         width: '100%',
         padding: '10px',
         border: '1px solid #ccc',
-        borderRadius: '2px',
+        borderRadius: '5px',
     },
     signupBtn: {
         backgroundColor: '#003366',
-        color: 'white',
+        color: '#fff',
         padding: '10px',
         width: '100%',
         border: 'none',
-        borderRadius: '2px',
-        cursor: 'pointer',
-        marginTop: '10px',
+        borderRadius: '5px',
         fontWeight: 'bold',
+        cursor: 'pointer',
     },
-    error: {
-        color: 'red',
-        marginBottom: '10px',
+    footer: {
+        marginTop: '15px',
     },
     link: {
-        color: '#ffcc33',
+        color: '#003366',
         textDecoration: 'none',
     },
 };

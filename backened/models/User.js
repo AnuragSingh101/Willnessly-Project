@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: {
+        type: String,
+        enum: ['user', 'admin'], // Define valid roles
+        default: 'user', // Default role is user
+    },
 }, { timestamps: true }); // Automatically manage createdAt and updatedAt timestamps
 
 // Create a model from the schema

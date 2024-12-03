@@ -28,9 +28,10 @@ const Login = () => {
 
             const data = await response.json();
 
-            // Store token and user ID in local storage
+            // Store token, user ID, and role in localStorage
             localStorage.setItem('token', data.token); // Store the JWT token
             localStorage.setItem('userId', data.user.id); // Store the user ID
+            localStorage.setItem('role', data.user.role); // Store the user role
 
             // Navigate to the remedies page
             navigate('/remedies');

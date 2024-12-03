@@ -1,7 +1,7 @@
 // HomePage.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import bgImage from 'P:/Project-willnessly/Frontend/src/assets/bg1.jpeg';
+import bgImage from 'D:/Project-willnessly/Frontend/src/assets/bg1.jpeg';
 const HomePage = () => {
   const navigate = useNavigate();
 

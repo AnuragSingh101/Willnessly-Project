@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth'); // Ensure this path is correct
 const remedy = require('./routes/remedyRoute')
 const Symptom = require('./routes/symptomRoute');
+const Post = require('./routes/postRoutes')
 
 const cors = require('cors');
 dotenv.config();
@@ -28,6 +29,7 @@ app.use('/api/remedy', remedy);
 
 app.use('/api/history', Symptom);
 
+app.use('/api/blog', Post);
 
 // Basic Error Handling Middleware
 app.use((err, req, res, next) => {

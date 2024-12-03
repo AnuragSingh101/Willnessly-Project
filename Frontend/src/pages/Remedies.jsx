@@ -7,6 +7,9 @@ const Remedies = ({ setRemedies }) => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    // Retrieve user role from localStorage or context
+    const userRole = localStorage.getItem('role'); // Example: 'admin' or 'user'
+
     const handleChange = (e) => {
         setSymptoms(e.target.value);
     };
@@ -44,6 +47,11 @@ const Remedies = ({ setRemedies }) => {
         }
     };
 
+    // Navigate to the Add Remedies form
+    const handleAddRemedies = () => {
+        navigate('/add-remedies');
+    };
+
     return (
         <div style={styles.pageContainer}>
             <div style={styles.container}>
@@ -59,18 +67,31 @@ const Remedies = ({ setRemedies }) => {
                         <input
                             id="symptoms"
                             name="symptoms"
-                            type="text" // Change to type="text"
+                            type="text"
                             value={symptoms}
                             onChange={handleChange}
                             required
-                            style={styles.input} // Update to use input styles
+                            style={styles.input}
                         />
                     </div>
                     <button type="submit" style={styles.fetchBtn}>Get Remedies</button>
                 </form>
+
+                {/* Add Remedies Button - visible only to admin users */}
+                {userRole === 'admin' && (
+                    <button
+                        type="button"
+                        onClick={handleAddRemedies}
+                        style={styles.addRemediesBtn}
+                    >
+                        Add Remedies
+                    </button>
+                )}
             </div>
             <footer style={styles.footer}>
-                <p style={styles.footerText}>By using this service, you agree to our <a href="#" style={styles.link}>Privacy Policy</a> and <a href="#" style={styles.link}>Terms of Service</a>.</p>
+                <p style={styles.footerText}>
+                    By using this service, you agree to our <a href="#" style={styles.link}>Privacy Policy</a> and <a href="#" style={styles.link}>Terms of Service</a>.
+                </p>
             </footer>
         </div>
     );
@@ -129,7 +150,7 @@ const styles = {
         color: '#333',
         fontSize: '1rem',
     },
-    input: { // Style for input field
+    input: {
         width: '100%',
         padding: '10px',
         border: '1px solid #A8D8E7',
@@ -146,6 +167,18 @@ const styles = {
         borderRadius: '5px',
         cursor: 'pointer',
         marginTop: '10px',
+        fontWeight: 'bold',
+        fontSize: '1rem',
+    },
+    addRemediesBtn: {
+        marginTop: '15px',
+        backgroundColor: '#1abc9c',
+        color: 'white',
+        padding: '10px',
+        width: '100%',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
         fontWeight: 'bold',
         fontSize: '1rem',
     },

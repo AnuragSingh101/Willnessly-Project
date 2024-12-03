@@ -30,11 +30,12 @@ const NavBar = ({ theme = 'light' }) => {
       </div>
 
       {/* Center Navigation Links */}
-      <nav style={{ textAlign: 'center', margin: '10px 0' }}> {/* Reduced top/bottom margin */}
+      <nav style={{ textAlign: 'center', margin: '10px 0' }}>
         <Link to="/" style={navLinkStyle}>Home</Link>
         <Link to="/aboutus" style={navLinkStyle}>About Us</Link>
         {isLoggedIn && <Link to="/remedies" style={navLinkStyle}>Remedies</Link>}
         {isLoggedIn && <Link to="/searchhistory" style={navLinkStyle}>History</Link>}
+        {isLoggedIn && <Link to="/posts" style={navLinkStyle}>Blog</Link>} {/* Added Blog Link */}
         {!isLoggedIn && <Link to="/login" style={navLinkStyle}>Login</Link>}
         {!isLoggedIn && <Link to="/signup" style={navLinkStyle}>Sign Up</Link>}
       </nav>
@@ -53,7 +54,6 @@ const NavBar = ({ theme = 'light' }) => {
     </div>
   );
 };
-
 
 const navLinkStyle = {
   textDecoration: 'none',

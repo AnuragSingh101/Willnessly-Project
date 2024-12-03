@@ -1,5 +1,5 @@
 import React from 'react';
-import bgImage from 'P:/Project-willnessly/Frontend/src/assets/aboutUs.png'; // Adjust the path to your image file
+import bgImage from 'D:/Project-willnessly/Frontend/src/assets/aboutUs.png'; // Adjust the path to your image file
 
 const AboutUs = () => {
   return (
